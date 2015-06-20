@@ -389,10 +389,22 @@ $item_str
 		
 		private function face($object,$img)
 		{
+         	//$imageUrl = array("MediaId"=>$object->MediaId);
+       				
+       		// $content = array("MediaId"=>$object->MediaId);
+            
+            $content[] = array("Title"=>"点击这里查看有惊喜哦ooo",  "Description"=>"看看你的微笑指数，年龄估算`(*∩_∩*)′", "PicUrl"=>$img, "Url" =>"http://1.15102228127.sinaapp.com/info.php?name=".$object."&img=".$img);        
+            $result = $this->transmitNews($object, $content);
+            
+            return $result;
+            
 				// face++ 链接
             //$jsonStr = file_get_contents("http://apicn.faceplusplus.com/v2/detection/detect?api_key=8fcd254a1f6e392576fb054870303bfc&api_secret=UQGabPrQk7gyzewH4QAcu5PzQ-dIe4XE&url=http%3A%2F%2Ffaceplusplus.com%2Fstatic%2Fimg%2Fdemo%2F1.jpg&attribute=glass,pose,gender,age,race,smiling");
-				 $jsonStr =	file_get_contents("http://apicn.faceplusplus.com/v2/detection/detect?url=".$img."&api_key=8fcd254a1f6e392576fb054870303bfc&api_secret=UQGabPrQk7gyzewH4QAcu5PzQ-dIe4XE&&attribute=glass,pose,gender,age,race,smiling");
+            /**	
+            $jsonStr =	file_get_contents("http://apicn.faceplusplus.com/v2/detection/detect?url=".$img."&api_key=8fcd254a1f6e392576fb054870303bfc&api_secret=UQGabPrQk7gyzewH4QAcu5PzQ-dIe4XE&&attribute=glass,pose,gender,age,race,smiling");
 				//return $jsonStr;
+        
+            
 				$replyDic = json_decode($jsonStr);
 				$resultStr = "";
 				$faceArray = $replyDic->{'face'};
@@ -506,12 +518,18 @@ $item_str
 <MsgType><![CDATA[text]]></MsgType>
 <Content><![CDATA[%s]]></Content>
 </xml>";
-        $result = sprintf($xmlTpl, $object->FromUserName, $object->ToUserName, time(), $resultStr);
-        return $result;
+            // $result = sprintf($xmlTpl, $object->FromUserName, $object->ToUserName, time(), $resultStr);    //微信对话格式
             
+                     
+            $content[] = array("Title"=>"点击这里查看有惊喜哦ooo",  "Description"=>"看看你的微笑指数，年龄估算`(*∩_∩*)′", "PicUrl"=>$img, "Url" =>"http://1.15102228127.sinaapp.com/info.php?name=".$object->FromUserName."&info=".$resultStr);        
+            $result = $this->transmitNews($object, $content);
             
-            
+            return $result;
+                        
             //return $resultStr;
+            **/
 		}
+       
+    
 }
 ?>
